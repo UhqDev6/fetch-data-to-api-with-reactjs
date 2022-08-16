@@ -167,28 +167,23 @@ const App = () => {
   const [news, setNews] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
-    try {
-      const getData = async () => {
-        const request = await fetch('https://the-lazy-media-api.vercel.app/api/games?page=1');
-        console.log(request);
-        const response = await request.json();
-        setNews(response);
-        setLoading(false);
-      };
+    const getData = async () => {
+      const request = await fetch('https://the-lazy-media-api.vercel.app/api/games?page=1');
+      const response = await request.json();
+      console.log(response);
+      setNews(response);
+      setLoading(false);
+    };
 
-      getData();
-    } catch (error) {
-      console.log(error);
-    }
+    getData();
   }, []);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Data API"), loading ? /*#__PURE__*/React.createElement("ul", null, "memproses data...") : /*#__PURE__*/React.createElement("ul", null, news.map(item => {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Data Games"), loading ? /*#__PURE__*/React.createElement("h4", null, "sedang memuat data...") : /*#__PURE__*/React.createElement("ul", null, news.map(item => {
     console.log(item);
     return /*#__PURE__*/React.createElement("div", {
       key: item.key
-    }, /*#__PURE__*/React.createElement("li", null, item.title), /*#__PURE__*/React.createElement("p", null, item.desc), /*#__PURE__*/React.createElement("img", {
-      src: item.thumb,
-      alt: item.title
-    }));
+    }, /*#__PURE__*/React.createElement("h2", null, item.title), /*#__PURE__*/React.createElement("p", null, item.desc), /*#__PURE__*/React.createElement("img", {
+      src: item.thumb
+    }), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, item.author)), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("i", null, item.time)));
   })));
 };
 

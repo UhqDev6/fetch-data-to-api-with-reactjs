@@ -187,53 +187,44 @@
         //     );
         // }
 
-
         const App = () => {
-            const [news, setNews] = React.useState([]);
-            const [loading, setLoading] = React.useState(true);
+            const[news, setNews] = React.useState([]);
+            const[loading, setLoading] = React.useState(true);
             React.useEffect(()=> {
-                try {
-                    const getData = async () => {
-                        const request = await fetch(
-                            'https://the-lazy-media-api.vercel.app/api/games?page=1'
-                        );
-                        console.log(request);
-                        const response = await request.json();
-                        setNews(response);
-                        setLoading(false);
-                    }
-                    getData();
-                } catch (error) {
-                    console.log(error);
+                const getData = async() => {
+                    const request = await fetch('https://the-lazy-media-api.vercel.app/api/games?page=1');
+                    const response = await request.json();
+                    console.log(response);
+                    setNews(response);
+                    setLoading(false);
                 }
-
+                getData();
             },[]);
+
             return (
                 <>
-                    <h1>Data API</h1>
-                    {loading ? 
-                        (<ul>
-                            memproses data...
-                        </ul>)
-                    : 
-                        (<ul>
-                            {news.map((item)=> {
-                                console.log(item);
-                                return (
-                                    <div key={item.key}>
-                                        <li>{item.title}</li>
-                                        <p>{item.desc}</p>
-                                        <img src={item.thumb} alt={item.title} />
-                                    </div>
-                                )
-                            })}
-                        </ul>)
-                    }
+                    <h1>Data Games</h1>
+                    {loading ? (
+                        <h4>sedang memuat data...</h4>
+                    ) : (
+                        <ul>
+                        {news.map((item)=> {
+                            console.log(item);
+                            return (
+                                <div key={item.key}>
+                                    <h2>{item.title}</h2>
+                                    <p>{item.desc}</p>
+                                    <img src={item.thumb}/>
+                                    <p><b>{item.author}</b></p>
+                                    <p><i>{item.time}</i></p>
+                                </div>
+                            );
+                        })}
+                    </ul>
+                    )}
                 </>
             );
         }
-
-
 
 
         ReactDOM.render(<App />, root);
